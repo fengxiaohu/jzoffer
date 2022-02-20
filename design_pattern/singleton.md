@@ -7,6 +7,7 @@ singleton单例设计模式定义
 实现方法包括以下几种：
 1. 饿汉
   在类加载的时候完成了初始化。缺点是即使不调用get也会初始化实例，占内存
+```
 #include <iostream>
 
 using namespace std;
@@ -35,6 +36,7 @@ class Singleton {
    }
 };
 
+
 //Initialize pointer to zero so that it can be initialized in first call to getInstance
 Singleton *Singleton::instance = 0;
 
@@ -45,9 +47,10 @@ int main(){
    cout << s->getData() << endl;
    return 0;
 }
+```
 2. lazy
 仅仅在调用*getInstance()获取实例的时候才初始化。缺点 不是线程安全的方法。为了确保线程级别的安全要尝试加锁。
-
+```
 #include <iostream>
 
 using namespace std;
@@ -87,8 +90,10 @@ int main(){
    cout << s->getData() << endl;
    return 0;
 }
+```
 3. lazy 线程安全的方法（上锁）
 缺点是
+```
 #include <iostream>
 #include <mutex>
 #include <thread>
@@ -136,5 +141,6 @@ int main(){
    cout << s->getData() << endl;
    return 0;
 }
+```
 4. double check 
 

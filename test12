@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+bool exist(vector<vector<char>>& board, string word);
+bool dfs(vector<vector<char>>& board, string word,int i,int rows,int j,int cols,int k);
+
+bool exist(vector<vector<char>>& board, string word) {
+    int cols = board.size();
+    int rows = board[0].size();
+    int k = 0;
+    for(int i=0;i<rows;i++)
+    {
+        for(int j=0;j<cols;j++)
+        {
+           return dfs(board,word,i,rows,j,cols,k);
+        }
+    }
+    return false;
+}
+bool dfs(vector<vector<char>>& board, string word,int i,int rows,int j,int cols,int k)
+    {
+      if(i>=rows || i<0 || j >= cols || j<0 || k >= word.size())
+      {
+         return false;
+      }
+      if(board[i][j] != word[k])
+      {
+          return false;
+      }
+      if(k == word.size()-1) return true;
+      char tmp = board[i][j];
+      board[i][j] = '\0';
+      
+      bool res = 
+      dfs(board,word,i+1,rows,j,cols,k+1) ||
+      dfs(board,word,i-1,rows,j,cols,k+1) ||
+      dfs(board,word,i,rows,j+1,cols,k+1) ||
+      dfs(board,word,i,rows,j-1,cols,k+1);
+      board[i][j] = tmp;
+      return res;
+        
+}
+
+int main(void)
+{
+    vector<vector<char>> test = {{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}};
+    string word = "ABCCED";
+    bool res = exist(test,word);
+    
+    
+}
+

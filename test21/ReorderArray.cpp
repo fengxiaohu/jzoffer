@@ -9,7 +9,7 @@
 void Reorder(int *pData, unsigned int length, bool (*func)(int));
 bool isEven(int n);
 
-// ====================����һ====================
+// fast-low pointer
 void ReorderOddEven_1(int *pData, unsigned int length)
 {
   int *p1,*p2;
@@ -42,6 +42,28 @@ void ReorderOddEven_1(int *pData, unsigned int length)
         }
       }
       p1++;
+  }
+}
+// double pointer 
+void ReorderOddEven_3(int *pData, unsigned int length)
+{
+  int *start = pData;
+  int *end = pData + length -1;
+  int temp = 0;
+  while(start<end)
+  {
+    while(*start % 2 == 1)
+    {
+      start++;
+    }
+    while(*end %2 == 0)
+    {
+      end--;
+    }
+
+    temp = *start;
+    *start = *end;
+    *end = temp;
   }
 }
 
@@ -114,6 +136,11 @@ void Test(char* testName, int numbers[], int length)
   printf("Test for solution 2:\n");
   PrintArray(copy, length);
   ReorderOddEven_2(copy, length);
+  PrintArray(copy, length);
+
+  printf("Test for solution 3:\n");
+  PrintArray(copy, length);
+  ReorderOddEven_3(copy, length);
   PrintArray(copy, length);
 
   delete[] copy;
